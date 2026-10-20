@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Payment update notification</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="night.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr screen-in" style="font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; color: #F5F7FA">
+  <div class="glow glow-blue" aria-hidden="true"></div>
+  <div class="sb" aria-hidden="true">
+    <span class="num">10:46</span>
+    <span class="sb-icons">
+      <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"></rect><rect x="5" y="5.5" width="3" height="6.5" rx="1"></rect><rect x="10" y="3" width="3" height="9" rx="1"></rect><rect x="15" y="0" width="3" height="12" rx="1"></rect></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.6c2.3 0 4.4.9 6 2.4l1.1-1.1A10 10 0 0 0 8 1 10 10 0 0 0 .9 3.9L2 5a8.4 8.4 0 0 1 6-2.4zm0 3.3c1.4 0 2.6.5 3.6 1.4l1.1-1.1A6.7 6.7 0 0 0 8 4.3a6.7 6.7 0 0 0-4.7 1.9l1.1 1.1c1-.9 2.2-1.4 3.6-1.4zM8 11.2 10.2 9a3.1 3.1 0 0 0-4.4 0z"></path></svg>
+      <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"></rect><rect x="2" y="2" width="20" height="9" rx="2" fill="currentColor"></rect><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill="currentColor" opacity=".45"></path></svg>
+    </span>
+  </div>
+
+  <div aria-hidden="true" style="flex: 1; padding: 158px 24px 0; display: flex; flex-direction: column; gap: 24px; filter: blur(1.5px); opacity: .85">
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 18px; justify-items: center">
+      <div style="width: 62px; height: 62px; border-radius: 18px; background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06)"></div>
+      <div style="width: 62px; height: 62px; border-radius: 18px; background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06)"></div>
+      <div style="width: 62px; height: 62px; border-radius: 18px; background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06)"></div>
+      <div style="width: 62px; height: 62px; border-radius: 18px; background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06)"></div>
+      <div style="width: 62px; height: 62px; border-radius: 18px; background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06)"></div>
+      <div style="width: 62px; height: 62px; border-radius: 18px; background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06)"></div>
+      <div style="width: 62px; height: 62px; border-radius: 18px; background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06)"></div>
+      <div style="width: 62px; height: 62px; border-radius: 18px; background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06)"></div>
+    </div>
+    <div style="height: 170px; border-radius: 28px; background: rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06)"></div>
+  </div>
+  <div aria-hidden="true" style="position: absolute; left: 14px; right: 14px; bottom: 26px; height: 90px; border-radius: 36px; background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: center; justify-items: center; padding: 0 10px; filter: blur(1px)">
+    <div style="width: 60px; height: 60px; border-radius: 18px; background: rgba(255,255,255,.1)"></div>
+    <div style="width: 60px; height: 60px; border-radius: 18px; background: rgba(255,255,255,.1)"></div>
+    <div style="width: 60px; height: 60px; border-radius: 18px; background: rgba(255,255,255,.1)"></div>
+    <div style="width: 60px; height: 60px; border-radius: 18px; background: rgba(255,255,255,.1)"></div>
+  </div>
+
+  <div class="toast" role="status" aria-live="polite">
+    <button class="tap" onClick="{{open}}" style="display: flex; gap: 12px; padding: 14px 52px 16px 14px; width: 100%; border-radius: 26px">
+      <span class="seal seal-blue seal-sm" style="width: 40px; height: 40px; border-radius: 12px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+      </span>
+      <span class="cell-text">
+        <span style="display: flex; justify-content: space-between; align-items: baseline">
+          <span class="t-head" style="font-size: 15px">Payment update</span>
+          <span class="t-cap" style="color: #A9B1BE">now</span>
+        </span>
+        <span class="t-callout" style="color: #C9CFD8">Still monitoring your <span class="num">₹450</span> payment to Swiggy Instamart. <span class="strong">No action needed from you.</span></span>
+      </span>
+    </button>
+    <button class="icon-btn bare" aria-label="Dismiss notification" style="position: absolute; top: 4px; right: 4px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+    </button>
+  </div>
+  <div class="hi" aria-hidden="true"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const go = this.props.go;
+    return { open: () => { if (go) go('escalation'); } };
+  }
+}
+</script>
+</body>
+</html>

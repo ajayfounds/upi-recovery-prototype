@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>If this happens again</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="night.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr screen-in" style="font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; color: #F5F7FA">
+  <div class="glow glow-blue" aria-hidden="true"></div>
+  <div class="sb" aria-hidden="true">
+    <span class="num">10:48</span>
+    <span class="sb-icons">
+      <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"></rect><rect x="5" y="5.5" width="3" height="6.5" rx="1"></rect><rect x="10" y="3" width="3" height="9" rx="1"></rect><rect x="15" y="0" width="3" height="12" rx="1"></rect></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.6c2.3 0 4.4.9 6 2.4l1.1-1.1A10 10 0 0 0 8 1 10 10 0 0 0 .9 3.9L2 5a8.4 8.4 0 0 1 6-2.4zm0 3.3c1.4 0 2.6.5 3.6 1.4l1.1-1.1A6.7 6.7 0 0 0 8 4.3a6.7 6.7 0 0 0-4.7 1.9l1.1 1.1c1-.9 2.2-1.4 3.6-1.4zM8 11.2 10.2 9a3.1 3.1 0 0 0-4.4 0z"></path></svg>
+      <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"></rect><rect x="2" y="2" width="20" height="9" rx="2" fill="currentColor"></rect><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill="currentColor" opacity=".45"></path></svg>
+    </span>
+  </div>
+  <div class="topbar">
+    <button class="icon-btn" aria-label="Back">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+    </button>
+  </div>
+
+  <main class="content">
+    <header style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px">
+      <span class="chip chip-blue rise d1">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg>
+        Quick guide
+      </span>
+      <h1 class="t-h1 rise d2">If this happens again…</h1>
+      <p class="t-body rise d3">Delays are rare, but normal. Here’s how to stay safe next time.</p>
+    </header>
+
+    <ul class="group" aria-label="What to do next time" style="list-style: none; margin: 0; padding: 4px 0">
+      <li class="cell rise d4" style="align-items: flex-start">
+        <span class="icon-tile tile-green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>
+        <div class="cell-text"><h2 class="t-head">Don’t panic</h2><p class="t-callout">Your money is never lost. It’s either with the bank or with the recipient.</p></div>
+      </li>
+      <li class="cell rise d5" style="align-items: flex-start">
+        <span class="icon-tile tile-amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg></span>
+        <div class="cell-text"><h2 class="t-head">Wait before retrying</h2><p class="t-callout">Give it at least <span class="strong num">15 minutes</span> to avoid a double deduction.</p></div>
+      </li>
+      <li class="cell rise d6" style="align-items: flex-start">
+        <span class="icon-tile tile-blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg></span>
+        <div class="cell-text"><h2 class="t-head">Check the status here</h2><p class="t-callout">We always show the real-time status, straight from your bank.</p></div>
+      </li>
+    </ul>
+  </main>
+
+  <div class="footer rise d7">
+    <button class="btn btn-primary" onClick="{{home}}">
+      Back to home
+      <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+    </button>
+  </div>
+  <div class="hi" aria-hidden="true"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const go = this.props.go;
+    return { home: () => { if (go) go('duplicate'); } };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+:root{--bg:#F4F5F8;--ink:#0B1220;--sub:#4A5363;--card:#FFFFFF;--line:rgba(11,18,32,.08);--ease:cubic-bezier(.32,.72,0,1)}
+@media (prefers-color-scheme:dark){:root{--bg:#07090D;--ink:#F5F7FA;--sub:#A9B1BE;--card:#111419;--line:rgba(255,255,255,.08)}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'Geist',ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding:72px 24px 48px}
+.intro{max-width:680px}
+.over{margin:0 0 14px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+h1{margin:0;font-size:clamp(32px,5vw,48px);line-height:1.08;font-weight:600;letter-spacing:-.035em}
+.lede{margin:20px 0 0;font-size:17px;line-height:27px;color:var(--sub)}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:56px}
+.card{display:flex;flex-direction:column;border-radius:28px;overflow:hidden;text-decoration:none;color:var(--ink);background:var(--card);
+  box-shadow:0 0 0 1px var(--line),0 24px 48px -28px rgba(11,18,32,.35);transition:transform 400ms var(--ease),box-shadow 400ms var(--ease)}
+.card:hover{transform:translateY(-4px);box-shadow:0 0 0 1px var(--line),0 36px 64px -28px rgba(11,18,32,.45)}
+.card:active{transform:scale(.99)}
+.card:focus-visible{outline:2px solid #2F6BFF;outline-offset:4px}
+.card img{display:block;width:100%;height:auto;aspect-ratio:390/600;object-fit:cover;object-position:top}
+.card.day{background:#EBEDF1}.card.night{background:#05070A;color:#F5F7FA}
+.meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:18px 22px}
+.name{font-size:18px;font-weight:600;letter-spacing:-.02em}
+.hint{font-size:14px;opacity:.7}
+.how{max-width:680px;margin-top:56px}
+h2{margin:0 0 10px;font-size:20px;font-weight:600;letter-spacing:-.02em}
+.how p{margin:0;font-size:15px;line-height:24px;color:var(--sub)}
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--sub)}
+.foot a{color:inherit}
+@media (max-width:640px){.wrap{padding-top:48px}.cards{grid-template-columns:1fr;gap:16px}.meta{padding:16px 18px}}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}

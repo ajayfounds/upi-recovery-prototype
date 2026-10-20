@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Money refunded</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="night.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr screen-in" style="font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; color: #F5F7FA">
+  <div class="glow glow-blue" aria-hidden="true"></div>
+  <span class="star" aria-hidden="true" style="left: 60px; top: 120px"></span>
+  <span class="star" aria-hidden="true" style="left: 310px; top: 96px; animation-delay: .8s"></span>
+  <span class="star" aria-hidden="true" style="left: 250px; top: 210px; animation-delay: 1.4s"></span>
+  <div class="sb" aria-hidden="true">
+    <span class="num">10:49</span>
+    <span class="sb-icons">
+      <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"></rect><rect x="5" y="5.5" width="3" height="6.5" rx="1"></rect><rect x="10" y="3" width="3" height="9" rx="1"></rect><rect x="15" y="0" width="3" height="12" rx="1"></rect></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.6c2.3 0 4.4.9 6 2.4l1.1-1.1A10 10 0 0 0 8 1 10 10 0 0 0 .9 3.9L2 5a8.4 8.4 0 0 1 6-2.4zm0 3.3c1.4 0 2.6.5 3.6 1.4l1.1-1.1A6.7 6.7 0 0 0 8 4.3a6.7 6.7 0 0 0-4.7 1.9l1.1 1.1c1-.9 2.2-1.4 3.6-1.4zM8 11.2 10.2 9a3.1 3.1 0 0 0-4.4 0z"></path></svg>
+      <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"></rect><rect x="2" y="2" width="20" height="9" rx="2" fill="currentColor"></rect><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill="currentColor" opacity=".45"></path></svg>
+    </span>
+  </div>
+  <div class="topbar" aria-hidden="true"></div>
+
+  <main class="content state" aria-live="polite">
+    <div style="position: relative; width: 200px; height: 112px; display: grid; place-items: center">
+      <div class="seal seal-blue pop">
+        <span class="burst" aria-hidden="true"></span>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path class="draw" d="m9 12 2 2 4-4"></path></svg>
+      </div>
+    </div>
+
+    <h1 class="eyebrow rise d2" style="margin-top: 28px">Money refunded</h1>
+    <p class="amount chrome-green rise d3" style="margin-top: 6px"><span class="cur">+₹</span>450<span class="dec">.00</span></p>
+    <p class="t-body rise d4" style="margin-top: 4px; max-width: 300px">The payment didn’t go through. Your money is back in your account.</p>
+
+    <section class="group rise d5" style="margin-top: 32px" aria-label="Refund details">
+      <div class="row"><span class="lbl">Status</span><span class="chip chip-green"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Credited</span></div>
+      <div class="row"><span class="lbl">Original payment</span><span class="chip chip-ink">Failed</span></div>
+      <div class="row"><span class="lbl">Ref ID</span><span class="mono">UPI-928374</span></div>
+    </section>
+  </main>
+
+  <div class="footer rise d6">
+    <button class="btn btn-primary" onClick="{{retry}}">
+      <svg class="spin-hover" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path><path d="M3 21v-5h5"></path></svg>
+      Retry payment
+    </button>
+    <button class="btn btn-ghost" onClick="{{close}}">Close</button>
+  </div>
+  <div class="hi" aria-hidden="true"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const go = this.props.go;
+    return {
+      retry: () => { if (go) go('checking'); },
+      close: () => { if (go) go('reassurance'); }
+    };
+  }
+}
+</script>
+</body>
+</html>

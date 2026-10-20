@@ -1,0 +1,11 @@
+{
+  "name": "upi-recovery-prototype",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive prototype of a UPI pending-payment recovery flow — Daylight and Midnight themes.",
+  "scripts": {
+    "build": "node tools/build.js",
+    "dev": "node tools/build.js && npx --yes serve site"
+  },
+  "license": "MIT"
+}

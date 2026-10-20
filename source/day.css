@@ -1,0 +1,217 @@
+/* UPI pending-payment flow — "Daylight": the light-mode twin of Midnight v2.1.
+   Same layout templates, components, semantics and 400 ms motion clock; only the surface, ink and light change. */
+:root{
+  /* surfaces */
+  --bg:#F4F5F8; --s1:#FFFFFF; --s2:#F7F8FA; --s3:#EEF0F4;
+  --line:rgba(11,18,32,.08); --line2:rgba(11,18,32,.12);
+  /* text — all ≥ 4.5:1 on --bg and --s1 */
+  --t1:#0B1220; --t2:#4A5363; --t3:#5F6878;
+  /* semantics: green = money safe/arrived · amber = wait/risk · blue = progress/info
+     *Ink = text on light (≥4.5:1) · base = fills/icons (≥3:1) */
+  --green:#0F8A45; --greenInk:#0B7A3B; --blue:#2F6BFF; --blueInk:#1A4FD6; --amber:#E08A00; --amberInk:#8A4E00;
+  /* motion */
+  --ease:cubic-bezier(.32,.72,0,1); --spring:cubic-bezier(.34,1.36,.64,1);
+  --dur:400ms; --press:160ms; --step:50ms;
+  /* elevation (light needs shadows where dark used hairlines) */
+  --e1:0 0 0 1px rgba(11,18,32,.05),0 1px 2px rgba(11,18,32,.04),0 12px 32px -16px rgba(11,18,32,.16);
+  --e2:0 0 0 1px rgba(11,18,32,.05),0 4px 10px rgba(11,18,32,.05),0 28px 56px -20px rgba(11,18,32,.26);
+}
+
+/* ---------- Shell & layout templates ---------- */
+.scr{width:390px;height:844px;position:relative;overflow:hidden;isolation:isolate;background:var(--bg);color:var(--t1);
+  font-family:'Geist',ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;box-sizing:border-box}
+.scr *,.scr *::before,.scr *::after{box-sizing:border-box}
+.sb{height:54px;flex:none;padding:16px 26px 0 34px;display:flex;justify-content:space-between;align-items:center;font-size:16px;font-weight:600;letter-spacing:-.01em;color:var(--t1)}
+.sb-icons{display:flex;gap:6px;align-items:center}
+.hi{position:absolute;bottom:8px;left:50%;width:134px;height:5px;margin-left:-67px;border-radius:99px;background:var(--t1);opacity:.85;z-index:5}
+.topbar{height:52px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:relative}
+.topbar-title{position:absolute;left:0;right:0;text-align:center;font-size:16px;font-weight:600;letter-spacing:-.01em;pointer-events:none}
+.content{flex:1;display:flex;flex-direction:column;gap:24px;padding:16px 24px 0;min-height:0}
+.content.state{align-items:center;justify-content:center;text-align:center;padding-bottom:40px;gap:0}
+.footer{flex:none;padding:12px 24px 42px;display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.footnote{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:13px;line-height:18px;font-weight:500;color:var(--t3);min-height:24px}
+.stack{display:flex;flex-direction:column;align-items:center}
+
+/* ---------- Ambient light: same position as Midnight, pastel wash ---------- */
+.glow{position:absolute;z-index:-1;left:50%;top:-280px;width:760px;height:620px;margin-left:-380px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,var(--g) 0%,transparent 100%);animation:glowIn 800ms var(--ease) both,breathe 5s ease-in-out 800ms infinite alternate}
+.glow-blue{--g:rgba(74,130,255,.24)} .glow-green{--g:rgba(34,190,100,.24)} .glow-amber{--g:rgba(255,166,40,.24)}
+.curtain{position:absolute;z-index:-1;inset:0 0 auto 0;height:360px;pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(15,138,69,.07) 0 1px,transparent 1px 16px);
+  -webkit-mask-image:linear-gradient(to bottom,#000,transparent);mask-image:linear-gradient(to bottom,#000,transparent);animation:fade 800ms var(--ease) both}
+.star{position:absolute;z-index:-1;width:3px;height:3px;border-radius:99px;background:var(--blue);animation:twinkle 3s ease-in-out infinite alternate}
+.p{position:absolute;border-radius:99px;animation:pIn var(--dur) var(--spring) both,drift 4.5s ease-in-out var(--dur) infinite alternate}
+
+/* ---------- Type ---------- */
+.t-h1{font-size:28px;line-height:34px;font-weight:600;letter-spacing:-.028em;margin:0;text-wrap:balance;color:var(--t1)}
+.t-h2{font-size:20px;line-height:26px;font-weight:600;letter-spacing:-.02em;margin:0;color:var(--t1)}
+.t-head{font-size:16px;line-height:22px;font-weight:600;letter-spacing:-.01em;margin:0;color:var(--t1)}
+.t-body{font-size:16px;line-height:24px;color:var(--t2);margin:0;text-wrap:pretty}
+.t-callout{font-size:14px;line-height:20px;color:var(--t2);margin:0;text-wrap:pretty}
+.t-cap{font-size:13px;line-height:18px;font-weight:500;color:var(--t3);margin:0}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:'Geist Mono',ui-monospace,monospace;font-size:14px;font-weight:500;letter-spacing:0;color:var(--t1)}
+.strong{color:var(--t1);font-weight:600}
+.amount{margin:0;font-size:56px;line-height:60px;font-weight:600;letter-spacing:-.045em;font-variant-numeric:tabular-nums;display:inline-flex;align-items:flex-start}
+.amount .cur{font-size:28px;line-height:38px;margin-right:4px;font-weight:500}
+.amount .dec{color:var(--t3);-webkit-text-fill-color:var(--t3)}
+.chrome{background:linear-gradient(180deg,#0B1220 30%,#4A5363 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.chrome-green{background:linear-gradient(180deg,#12994E 0%,#0B6E37 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{font-size:16px;line-height:22px;font-weight:600;letter-spacing:-.01em;color:var(--t1);margin:0}
+
+/* ---------- Surfaces ---------- */
+.group{width:100%;background:var(--s1);border-radius:24px;box-shadow:var(--e1);text-align:left}
+.row{margin:0 18px;min-height:52px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.row + .row{border-top:1px solid var(--line)}
+.lbl{font-size:15px;color:var(--t2)} .val{font-size:15px;color:var(--t1);font-weight:500}
+.cell{display:flex;align-items:center;gap:14px;padding:14px 18px}
+.cell + .cell{border-top:1px solid var(--line)}
+.cell-text{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+
+/* ---------- Seals ---------- */
+.seal{width:96px;height:96px;border-radius:999px;display:grid;place-items:center;position:relative;flex:none;
+  background:radial-gradient(circle at 50% 28%,var(--c1) 0%,var(--c2) 72%);
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.6),inset 0 -10px 18px rgba(0,0,0,.14),0 0 0 8px var(--ring),0 18px 40px -12px var(--cg)}
+.seal::before{content:"";position:absolute;inset:5px 16px auto;height:36%;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0))}
+.seal > svg{position:relative}
+.seal-green{--c1:#5FE39A;--c2:#0F8A45;--ring:rgba(15,138,69,.10);--cg:rgba(15,138,69,.45);color:#FFFFFF}
+.seal-blue{--c1:#8FB2FF;--c2:#2F6BFF;--ring:rgba(47,107,255,.10);--cg:rgba(47,107,255,.45);color:#FFFFFF}
+.seal-amber{--c1:#FFD48A;--c2:#F29A12;--ring:rgba(224,138,0,.12);--cg:rgba(224,138,0,.40);color:#2B1700}
+.seal-sm{width:44px;height:44px;box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -6px 10px rgba(0,0,0,.12),0 10px 22px -8px var(--cg)}
+.seal-sm::before{inset:3px 9px auto}
+.icon-tile{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;flex:none}
+.tile-green{background:#E3F5EA;color:var(--greenInk);box-shadow:inset 0 0 0 1px rgba(15,138,69,.16)}
+.tile-blue{background:#E8EFFF;color:var(--blueInk);box-shadow:inset 0 0 0 1px rgba(47,107,255,.16)}
+.tile-amber{background:#FFF1D6;color:var(--amberInk);box-shadow:inset 0 0 0 1px rgba(224,138,0,.18)}
+.avatar{width:44px;height:44px;border-radius:999px;display:grid;place-items:center;font-weight:600;font-size:14px;flex:none;background:var(--s3);color:var(--t2);box-shadow:inset 0 0 0 1px var(--line)}
+
+/* ---------- Chips ---------- */
+.chip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;line-height:1;white-space:nowrap}
+.chip-green{background:#E3F5EA;color:var(--greenInk);box-shadow:inset 0 0 0 1px rgba(15,138,69,.18)}
+.chip-amber{background:#FFF1D6;color:var(--amberInk);box-shadow:inset 0 0 0 1px rgba(224,138,0,.22)}
+.chip-blue{background:#E8EFFF;color:var(--blueInk);box-shadow:inset 0 0 0 1px rgba(47,107,255,.18)}
+.chip-ink{background:var(--s3);color:var(--t2);box-shadow:inset 0 0 0 1px var(--line)}
+
+/* ---------- Buttons: primary (ink) · secondary (white) · tertiary (text) ---------- */
+.btn{appearance:none;border:0;margin:0;width:100%;height:56px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:10px;
+  font:600 16px/1 'Geist',ui-sans-serif,system-ui,sans-serif;letter-spacing:-.01em;cursor:pointer;text-decoration:none;
+  transition:transform var(--press) var(--ease),box-shadow var(--dur) var(--ease),background-color var(--dur) var(--ease),color var(--dur) var(--ease)}
+.btn:active{transform:scale(.97)}
+.btn:focus-visible,.icon-btn:focus-visible,.tap:focus-visible,.nav-item:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.btn-primary{background:linear-gradient(180deg,#1E2638 0%,#0B1220 100%);color:#FFFFFF;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 1px 2px rgba(11,18,32,.2),0 12px 28px -12px rgba(11,18,32,.55)}
+.btn-primary:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 1px 2px rgba(11,18,32,.2),0 18px 36px -12px rgba(11,18,32,.6)}
+.btn-secondary{background:#FFFFFF;color:var(--t1);box-shadow:inset 0 0 0 1px var(--line2),0 1px 2px rgba(11,18,32,.05)}
+.btn-secondary:hover{box-shadow:inset 0 0 0 1px rgba(11,18,32,.18),0 8px 18px -10px rgba(11,18,32,.25)}
+.btn-ghost{background:transparent;color:var(--t2);height:48px}
+.btn-ghost:hover{color:var(--t1);background:rgba(11,18,32,.04)}
+.btn .arrow{transition:transform var(--dur) var(--ease)}
+.btn:hover .arrow{transform:translateX(4px)}
+.spin-hover{transition:transform 600ms var(--ease)}
+.btn:hover .spin-hover{transform:rotate(-180deg)}
+.icon-btn{appearance:none;border:0;width:44px;height:44px;border-radius:999px;display:grid;place-items:center;background:#FFFFFF;color:var(--t1);cursor:pointer;
+  box-shadow:inset 0 0 0 1px var(--line),0 1px 2px rgba(11,18,32,.05);transition:background-color var(--dur) var(--ease),transform var(--press) var(--ease)}
+.icon-btn:hover{background:var(--s2)}
+.icon-btn:active{transform:scale(.92)}
+.icon-btn.bare{background:transparent;box-shadow:none}
+.icon-btn.bare:hover{background:rgba(11,18,32,.05)}
+.tap{appearance:none;border:0;background:transparent;font:inherit;color:inherit;text-align:left;cursor:pointer;transition:transform var(--press) var(--ease)}
+.tap:active{transform:scale(.98)}
+
+/* ---------- Progress rail ---------- */
+.tl{display:flex;flex-direction:column;list-style:none;margin:0;padding:0;width:100%;text-align:left}
+.tl-step{display:flex;gap:16px}
+.tl-rail{width:32px;flex:none;display:flex;flex-direction:column;align-items:center}
+.tl-node{width:32px;height:32px;border-radius:999px;display:grid;place-items:center;flex:none;position:relative;z-index:1;
+  transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.tl-node.done{background:var(--green);color:#FFFFFF;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 6px 14px -6px rgba(15,138,69,.6)}
+.tl-node.active{background:#FFF1D6;color:var(--amberInk);animation:pulseAmber 2s var(--ease) infinite}
+.tl-node.active.blue{background:#E8EFFF;color:var(--blueInk);animation:pulseBlue 2s var(--ease) infinite}
+.tl-node.todo{background:#FFFFFF;color:var(--t3);box-shadow:inset 0 0 0 1px var(--line2)}
+.tl-line{width:3px;flex:1;min-height:28px;border-radius:3px;margin:6px 0;background:rgba(11,18,32,.08);position:relative;overflow:hidden}
+.tl-line .bar{position:absolute;inset:0;border-radius:3px;background:var(--green);transform-origin:top;transform:scaleY(0);transition:transform var(--dur) var(--ease)}
+.tl-line .bar.on{transform:scaleY(1)}
+.bar-grow{animation:grow var(--dur) var(--ease) both}
+.tl-body{flex:1;padding:5px 0 22px;display:flex;flex-direction:column;gap:2px}
+.tl-step:last-child .tl-body{padding-bottom:0}
+
+/* ---------- Overlays ---------- */
+.scrim{position:absolute;inset:0;z-index:2;background:rgba(11,18,32,.24);backdrop-filter:blur(8px) saturate(1.1);-webkit-backdrop-filter:blur(8px) saturate(1.1);animation:fade var(--dur) var(--ease) both}
+.sheet{position:absolute;z-index:3;left:8px;right:8px;bottom:8px;border-radius:40px;overflow:hidden;padding:0 22px 28px;background:#FFFFFF;
+  box-shadow:0 0 0 1px rgba(11,18,32,.04),0 -12px 48px -8px rgba(11,18,32,.28);animation:sheetUp var(--dur) var(--ease) both}
+.grabber{width:36px;height:5px;border-radius:99px;background:rgba(11,18,32,.16);margin:8px auto 0}
+.callout{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:16px;font-size:14px;line-height:20px;font-weight:500;margin:0;text-align:left}
+.callout-amber{background:#FFF1D6;box-shadow:inset 0 0 0 1px rgba(224,138,0,.22);color:var(--amberInk)}
+.toast{position:absolute;left:10px;right:10px;top:58px;z-index:3;border-radius:26px;display:flex;
+  background:rgba(255,255,255,.8);backdrop-filter:blur(30px) saturate(1.8);-webkit-backdrop-filter:blur(30px) saturate(1.8);
+  box-shadow:var(--e2);animation:toastIn var(--dur) var(--spring) 240ms both}
+
+/* ---------- Loader & live indicators ---------- */
+.loader{width:96px;height:96px;border-radius:999px;display:grid;place-items:center;position:relative;flex:none;background:#FFFFFF;
+  box-shadow:0 0 0 8px rgba(47,107,255,.07),var(--e2)}
+.loader::after{content:"";position:absolute;inset:-8px;border-radius:999px;border:1px solid rgba(47,107,255,.4);animation:halo 2.4s var(--ease) infinite}
+.ring{animation:spin 1.1s linear infinite}
+.live-dot{width:8px;height:8px;border-radius:99px;background:var(--green);position:relative;flex:none}
+.live-dot::after{content:"";position:absolute;inset:-4px;border-radius:99px;background:inherit;opacity:.3;animation:ping 1.6s var(--ease) infinite}
+.live-dot.amber{background:var(--amber)} .live-dot.blue{background:var(--blue)}
+.shimmer{background:linear-gradient(90deg,var(--t3) 0%,var(--t3) 38%,#B4BBC6 50%,var(--t3) 62%,var(--t3) 100%);background-size:260% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 2.4s linear infinite}
+.dots::after{content:"";display:inline-block;width:1.2em;text-align:left;animation:dots 1.2s steps(4,end) infinite}
+
+/* ---------- Motion: identical to Midnight ---------- */
+.screen-in{animation:screenIn var(--dur) var(--ease) both}
+.rise{animation:rise var(--dur) var(--ease) both}
+.pop{animation:pop var(--dur) var(--spring) both}
+.d1{animation-delay:calc(var(--step)*1)}.d2{animation-delay:calc(var(--step)*2)}.d3{animation-delay:calc(var(--step)*3)}.d4{animation-delay:calc(var(--step)*4)}
+.d5{animation-delay:calc(var(--step)*5)}.d6{animation-delay:calc(var(--step)*6)}.d7{animation-delay:calc(var(--step)*7)}.d8{animation-delay:calc(var(--step)*8)}
+.draw{stroke-dasharray:32;stroke-dashoffset:32;animation:draw var(--dur) var(--ease) 300ms forwards}
+.burst{position:absolute;inset:-8px;border-radius:999px;border:2px solid var(--cg);opacity:0;animation:burst 900ms var(--ease) 250ms both}
+.wiggle{animation:wiggle 800ms var(--ease) 500ms both;transform-origin:50% 10%;display:inline-grid}
+.nudge{animation:nudge 600ms var(--ease) 450ms both;display:inline-grid}
+.swap{animation:fade var(--dur) var(--ease) both}
+
+@keyframes screenIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes screenOut{from{opacity:1;transform:none}to{opacity:0;transform:scale(.97)}}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes glowIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+@keyframes breathe{from{opacity:.8}to{opacity:1}}
+@keyframes pop{0%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:scale(1)}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes halo{0%{transform:scale(.95);opacity:.8}100%{transform:scale(1.35);opacity:0}}
+@keyframes ping{0%{transform:scale(.6);opacity:.5}100%{transform:scale(1.9);opacity:0}}
+@keyframes pulseAmber{0%{box-shadow:inset 0 0 0 1.5px var(--amber),0 0 0 0 rgba(224,138,0,.35)}100%{box-shadow:inset 0 0 0 1.5px var(--amber),0 0 0 10px rgba(224,138,0,0)}}
+@keyframes pulseBlue{0%{box-shadow:inset 0 0 0 1.5px var(--blue),0 0 0 0 rgba(47,107,255,.35)}100%{box-shadow:inset 0 0 0 1.5px var(--blue),0 0 0 10px rgba(47,107,255,0)}}
+@keyframes sheetUp{from{transform:translateY(105%)}to{transform:none}}
+@keyframes toastIn{from{opacity:0;transform:translateY(-120%) scale(.96)}to{opacity:1;transform:none}}
+@keyframes burst{0%{opacity:.6;transform:scale(.9)}100%{opacity:0;transform:scale(1.45)}}
+@keyframes shimmer{from{background-position:100% 0}to{background-position:-160% 0}}
+@keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+@keyframes twinkle{from{opacity:.12}to{opacity:.45}}
+@keyframes pIn{from{opacity:0;transform:translateY(24px) scale(.3)}to{opacity:1;transform:none}}
+@keyframes drift{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+@keyframes wiggle{0%,100%{transform:rotate(0)}20%{transform:rotate(-14deg)}40%{transform:rotate(11deg)}60%{transform:rotate(-6deg)}80%{transform:rotate(3deg)}}
+@keyframes nudge{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}50%{transform:translateX(3px)}75%{transform:translateX(-2px)}}
+
+@media (prefers-reduced-motion:reduce){
+  .scr *,.scr *::before,.scr *::after,.screen-in,.layer *{animation-duration:1ms!important;animation-iteration-count:1!important;animation-delay:0ms!important;transition-duration:1ms!important}
+}
+
+/* ---------- Prototype shell ---------- */
+.layer{position:absolute;inset:0}
+.layer-out{z-index:1;pointer-events:none;animation:screenOut var(--dur) var(--ease) forwards}
+.layer-out *,.layer-out *::before,.layer-out *::after{animation:none!important;transition:none!important}
+.layer-in{z-index:2}
+.nav-item{appearance:none;border:0;width:100%;min-height:44px;display:flex;align-items:center;gap:12px;padding:8px 14px;border-radius:999px;background:transparent;
+  font:500 14px/20px 'Geist',ui-sans-serif,system-ui,sans-serif;color:#4A5363;text-align:left;cursor:pointer;
+  transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease),transform var(--press) var(--ease)}
+.nav-item:hover{background:rgba(11,18,32,.05);color:#0B1220}
+.nav-item:active{transform:scale(.98)}
+.nav-item.on{background:#0B1220;color:#FFFFFF}
+.nav-item .n{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;width:22px;opacity:.7}
+.device{width:416px;height:870px;border-radius:62px;padding:13px;background:linear-gradient(145deg,#E8EAEE,#B7BCC5 40%,#D8DBE0);
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.7),inset 0 0 0 3px rgba(11,18,32,.08),0 50px 90px -30px rgba(11,18,32,.45),0 0 120px -40px rgba(47,107,255,.3)}
+.device-screen{width:390px;height:844px;border-radius:49px;overflow:hidden;position:relative;background:#F4F5F8;isolation:isolate;box-shadow:0 0 0 1px rgba(11,18,32,.25)}
+.t-over{font-size:11px;line-height:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#5F6878;margin:0}
