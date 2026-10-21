@@ -14,11 +14,27 @@ h1{margin:0;font-size:clamp(32px,5vw,48px);line-height:1.08;font-weight:600;lett
 .card:hover{transform:translateY(-4px);box-shadow:0 0 0 1px var(--line),0 36px 64px -28px rgba(11,18,32,.45)}
 .card:active{transform:scale(.99)}
 .card:focus-visible{outline:2px solid #2F6BFF;outline-offset:4px}
+.card-img{position:relative;overflow:hidden}
+.card-img::after{content:"";position:absolute;left:0;right:0;bottom:0;height:40%;pointer-events:none}
+.card.day .card-img::after{background:linear-gradient(to top,#EBEDF1 0%,rgba(235,237,241,0) 100%)}
+.card.night .card-img::after{background:linear-gradient(to top,#05070A 0%,rgba(5,7,10,0) 100%)}
 .card img{display:block;width:100%;height:auto;aspect-ratio:390/600;object-fit:cover;object-position:top}
 .card.day{background:#EBEDF1}.card.night{background:#05070A;color:#F5F7FA}
-.meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:18px 22px}
+.meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:18px 22px 0}
 .name{font-size:18px;font-weight:600;letter-spacing:-.02em}
 .hint{font-size:14px;opacity:.7}
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px 18px 18px;height:52px;border-radius:999px;
+  font-size:15px;font-weight:600;letter-spacing:-.01em;text-decoration:none;
+  transition:transform 200ms var(--ease),box-shadow 200ms var(--ease),filter 200ms var(--ease)}
+.cta:active{transform:scale(.97)}
+.cta .arr{transition:transform 300ms var(--ease)}
+.cta:hover .arr{transform:translateX(4px)}
+.card.day .cta{background:linear-gradient(180deg,#1E2638 0%,#0B1220 100%);color:#FFFFFF;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 1px 2px rgba(11,18,32,.2),0 12px 28px -12px rgba(11,18,32,.5)}
+.card.day .cta:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 1px 2px rgba(11,18,32,.2),0 18px 36px -12px rgba(11,18,32,.6)}
+.card.night .cta{background:linear-gradient(180deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,.08) 100%);color:#F5F7FA;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 0 0 1px rgba(255,255,255,.1),0 12px 28px -12px rgba(0,0,0,.6)}
+.card.night .cta:hover{filter:brightness(1.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 0 0 1px rgba(255,255,255,.14),0 18px 36px -12px rgba(0,0,0,.7)}
 .how{max-width:680px;margin-top:56px}
 h2{margin:0 0 10px;font-size:20px;font-weight:600;letter-spacing:-.02em}
 .how p{margin:0;font-size:15px;line-height:24px;color:var(--sub)}

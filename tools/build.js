@@ -40,10 +40,12 @@ function page(theme) {
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="color-scheme" content="${theme.scheme}">
 <meta name="theme-color" content="${theme.bg}">
-<title>UPI Pending Payment Recovery — ${theme.label} prototype</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="${theme.scheme === 'dark' ? 'black-translucent' : 'default'}">
+<title>UPI Pending Payment Recovery — ${theme.label}</title>
 <meta name="description" content="Interactive prototype of a UPI pending-payment recovery flow (${theme.label} theme).">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,19 +56,12 @@ function page(theme) {
 <style>:root{--page-bg:${theme.bg};--page-ink:${theme.ink};--page-sub:${theme.sub};--page-chip:${theme.chip};--page-line:${theme.line}}</style>
 </head>
 <body class="theme-${theme.slug}">
-<header class="bar">
-  <a class="brand" href="../">UPI recovery <span>prototype</span></a>
-  <nav class="seg" aria-label="Theme">
-    <a href="../daylight/" ${theme.slug === 'daylight' ? 'aria-current="page"' : ''} data-theme-link="daylight">Daylight</a>
-    <a href="../midnight/" ${theme.slug === 'midnight' ? 'aria-current="page"' : ''} data-theme-link="midnight">Midnight</a>
-  </nav>
-</header>
 <main id="stage" class="stage"><div id="app" class="app"></div></main>
 <noscript><p style="padding:24px">This prototype needs JavaScript.</p></noscript>
 <script src="../assets/morphdom.min.js"></script>
 <script src="../assets/dc-runtime.js"></script>
 <script src="screens.js"></script>
-<script src="../assets/app.js" data-root="${theme.prefix}Main"></script>
+<script src="../assets/app.js" data-root="${theme.prefix}Main" data-theme="${theme.slug}" data-other="${theme.other}"></script>
 </body>
 </html>
 `;
@@ -98,17 +93,19 @@ function landing() {
   </header>
   <section class="cards" aria-label="Choose a theme">
     <a class="card day" href="daylight/">
-      <img src="assets/preview-daylight.png" alt="Daylight theme: payment status screen" width="390" height="844" loading="eager">
-      <span class="meta"><span class="name">Daylight</span><span class="hint">Light mode · open prototype →</span></span>
+      <span class="card-img"><img src="assets/preview-daylight.png" alt="Daylight theme: payment status screen" width="390" height="844" loading="eager"></span>
+      <span class="meta"><span class="name">Daylight</span><span class="hint">Light mode</span></span>
+      <span class="cta">Open prototype <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></span>
     </a>
     <a class="card night" href="midnight/">
-      <img src="assets/preview-midnight.png" alt="Midnight theme: payment status screen" width="390" height="844" loading="eager">
-      <span class="meta"><span class="name">Midnight</span><span class="hint">Dark mode · open prototype →</span></span>
+      <span class="card-img"><img src="assets/preview-midnight.png" alt="Midnight theme: payment status screen" width="390" height="844" loading="eager"></span>
+      <span class="meta"><span class="name">Midnight</span><span class="hint">Dark mode</span></span>
+      <span class="cta">Open prototype <svg class="arr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></span>
     </a>
   </section>
   <section class="how">
     <h2>How to use it</h2>
-    <p>The flow plays itself: screens advance on realistic timers, and every button works. Use the list on the left to jump to any state, or switch themes from the top bar — you stay on the same screen. On a phone you get the device screen full-bleed; tap the step counter to jump around.</p>
+    <p>The flow plays itself: screens advance on realistic timers, and every button works. Swipe or use arrow keys to step through. Pick a screen from the bottom bar, or switch themes — you stay on the same screen. On a phone it goes full-bleed; add to home screen for the real app feel.</p>
   </section>
   <footer class="foot">Designed by Ajay Kumar Srivastava · <a href="https://ajaysri.vercel.app">ajaysri.vercel.app</a></footer>
 </main>
