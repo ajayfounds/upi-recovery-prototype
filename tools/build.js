@@ -89,8 +89,9 @@ function landing() {
 <main class="wrap">
   <header class="intro">
     <p class="over">UPI · Pending payment recovery</p>
-    <h1>When a payment hangs, tell people where their money is.</h1>
-    <p class="lede">An 11-screen flow that takes someone from “did my ₹450 just vanish?” to a confirmed outcome — success or refund — without a second, duplicate payment. Built on one 400&nbsp;ms motion clock, with colour that tracks the money: blue checking, amber waiting, green safe.</p>
+    <h1>You paid ₹450. The app says "pending." Now what?</h1>
+    <p class="lede">You know that moment. You pay at a shop, the money leaves your account, and the app just sits there saying "pending." Most people panic and pay again, and now they've paid twice. I designed 11 screens for those few awkward minutes. They tell you where your money actually is and when you'll hear back, and they stop you from paying a second time. It ends one of two ways: the payment goes through, or you get your money back.</p>
+    <p class="lede">The colours follow your money too. Blue means we're checking, amber means we're waiting on the bank, and green means you're safe.</p>
   </header>
   <section class="cards" aria-label="Choose a theme">
     <a class="card day" href="daylight/">
@@ -105,8 +106,13 @@ function landing() {
     </a>
   </section>
   <section class="how">
-    <h2>How to use it</h2>
-    <p>The flow plays itself: screens advance on realistic timers, and every button works. Swipe or use arrow keys to step through. Pick a screen from the bottom bar, or switch themes — you stay on the same screen. On a phone it goes full-bleed; add to home screen for the real app feel.</p>
+    <h2>How to play with it</h2>
+    <p>Pick light or dark above and just watch. The screens move on their own, at roughly the pace a real stuck payment would, and every button actually does something. Swipe or use the arrow keys to skip around, or jump to any screen from the bar at the bottom. Switching themes keeps you on the same screen. On your phone it fills the whole screen, and if you add it to your home screen it feels like a real app. (It's a prototype, so no real money moves, promise.)</p>
+  </section>
+  <section class="how">
+    <h2>Want the full story?</h2>
+    <p>I did this as a 7-day solo project. Why people end up paying twice, who I designed for, and the thinking behind every screen are all in the case study.</p>
+    <a class="read" href="https://ajaysri.vercel.app/work/upi-failure-recovery">Read the full case study <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></a>
   </section>
   <footer class="foot">Designed by Ajay Kumar Srivastava · <a href="https://ajaysri.vercel.app">ajaysri.vercel.app</a></footer>
 </main>

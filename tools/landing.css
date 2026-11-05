@@ -38,6 +38,13 @@ h1{margin:0;font-size:clamp(32px,5vw,48px);line-height:1.08;font-weight:600;lett
 .how{max-width:680px;margin-top:56px}
 h2{margin:0 0 10px;font-size:20px;font-weight:600;letter-spacing:-.02em}
 .how p{margin:0;font-size:15px;line-height:24px;color:var(--sub)}
+.lede+.lede{margin-top:12px}
+.how+.how{margin-top:40px}
+.read{display:inline-flex;align-items:center;gap:8px;margin-top:16px;height:44px;padding:0 20px;border-radius:999px;font-size:15px;font-weight:600;
+  color:var(--ink);text-decoration:none;background:var(--card);box-shadow:0 0 0 1px var(--line),0 8px 20px -12px rgba(11,18,32,.3);transition:transform 200ms var(--ease)}
+.read:hover{transform:translateY(-2px)}
+.read:active{transform:scale(.97)}
+.read:focus-visible{outline:2px solid #2F6BFF;outline-offset:3px}
 .foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--sub)}
 .foot a{color:inherit}
 @media (max-width:640px){.wrap{padding-top:48px}.cards{grid-template-columns:1fr;gap:16px}.meta{padding:16px 18px}}
