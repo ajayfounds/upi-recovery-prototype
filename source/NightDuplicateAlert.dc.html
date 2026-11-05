@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Possible duplicate payment · alert</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="night.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr screen-in" style="font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; color: #F5F7FA">
+  <div class="glow glow-amber" aria-hidden="true"></div>
+  <div class="sb" aria-hidden="true">
+    <span class="num">10:43</span>
+    <span class="sb-icons">
+      <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"></rect><rect x="5" y="5.5" width="3" height="6.5" rx="1"></rect><rect x="10" y="3" width="3" height="9" rx="1"></rect><rect x="15" y="0" width="3" height="12" rx="1"></rect></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.6c2.3 0 4.4.9 6 2.4l1.1-1.1A10 10 0 0 0 8 1 10 10 0 0 0 .9 3.9L2 5a8.4 8.4 0 0 1 6-2.4zm0 3.3c1.4 0 2.6.5 3.6 1.4l1.1-1.1A6.7 6.7 0 0 0 8 4.3a6.7 6.7 0 0 0-4.7 1.9l1.1 1.1c1-.9 2.2-1.4 3.6-1.4zM8 11.2 10.2 9a3.1 3.1 0 0 0-4.4 0z"></path></svg>
+      <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"></rect><rect x="2" y="2" width="20" height="9" rx="2" fill="currentColor"></rect><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill="currentColor" opacity=".45"></path></svg>
+    </span>
+  </div>
+  <div class="topbar" aria-hidden="true"><span class="topbar-title">Pay</span></div>
+
+  <div aria-hidden="true" style="flex: 1; display: flex; flex-direction: column; padding: 4px 24px 0">
+    <div style="display: flex; align-items: center; gap: 14px">
+      <span class="avatar" style="background: url(&quot;../assets/swiggy-logo.jpg&quot;) center / contain no-repeat; border-radius: 999px"></span>
+      <div class="cell-text"><span class="t-head">Swiggy Instamart</span><span class="t-cap">swiggy.instamart@hdfcbank</span></div>
+    </div>
+    <p class="amount chrome" style="align-self: center; margin-top: 28px"><span class="cur">₹</span>450</p>
+    <div style="flex: 1"></div>
+    <div class="num" style="display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; font-size: 28px; font-weight: 400; color: rgba(245,247,250,.32)"><span style="height: 60px; display: grid; place-items: center">1</span><span style="height: 60px; display: grid; place-items: center">2</span><span style="height: 60px; display: grid; place-items: center">3</span><span style="height: 60px; display: grid; place-items: center">4</span><span style="height: 60px; display: grid; place-items: center">5</span><span style="height: 60px; display: grid; place-items: center">6</span><span style="height: 60px; display: grid; place-items: center">7</span><span style="height: 60px; display: grid; place-items: center">8</span><span style="height: 60px; display: grid; place-items: center">9</span><span style="height: 60px; display: grid; place-items: center">·</span><span style="height: 60px; display: grid; place-items: center">0</span><span style="height: 60px; display: grid; place-items: center">⌫</span></div>
+    <div style="padding: 16px 0 42px"><div class="btn btn-primary" style="opacity: .35">Pay ₹450</div></div>
+  </div>
+
+  <div class="scrim" aria-hidden="true" style="backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px)"></div>
+  <section class="alert-in {{shakeCls}}" role="alertdialog" aria-modal="true" aria-labelledby="dup2-title" aria-describedby="dup2-desc" style="position: absolute; z-index: 3; left: 16px; right: 16px; top: 50%; margin-top: -196px; border-radius: 36px; padding: 28px 20px 12px; text-align: center; display: flex; flex-direction: column; align-items: center; background: linear-gradient(180deg, #1A1E26 0%, #12151B 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.09), inset 0 0 0 1px rgba(255,255,255,.05), 0 32px 64px -16px rgba(0,0,0,.7)">
+    <div class="seal seal-amber attn" style="width: 72px; height: 72px">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+    </div>
+    <span style="margin-top: 20px; display: inline-flex; align-items: center; height: 24px; font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: -.005em; white-space: nowrap; color: #FFCF85">Same amount&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp;1 min ago</span>
+    <h2 id="dup2-title" class="t-h2" style="margin-top: 6px">You already paid this</h2>
+    <p id="dup2-desc" class="t-callout" style="margin-top: 8px; max-width: 290px"><span class="num">₹450</span> to Swiggy Instamart from <span class="num">10:42 AM</span> is still pending. Paying again could charge you twice.</p>
+    <div style="align-self: stretch; display: flex; flex-direction: column; gap: 4px; margin-top: 24px">
+      <button class="btn btn-primary" onClick="{{wait}}">Wait for that payment</button>
+      <button class="btn btn-ghost {{armedCls}}" style="color: #FF8A80" onClick="{{again}}" aria-live="polite">{{againLabel}}</button>
+    </div>
+  </section>
+  <div class="hi" aria-hidden="true" style="z-index: 6"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { armed: false, shake: false }; }
+  componentWillUnmount() { clearTimeout(this._s); }
+  renderVals() {
+    const go = this.props.go;
+    const armed = this.state.armed;
+    return {
+      wait: () => { if (go) go('refunded'); },
+      again: () => {
+        if (!armed) { this.setState({ armed: true, shake: true }); clearTimeout(this._s); this._s = setTimeout(() => this.setState({ shake: false }), 450); return; }
+        if (go) go('checking');
+      },
+      againLabel: armed ? 'Tap again to pay ₹450 a second time' : 'Pay again anyway',
+      armedCls: armed ? 'armed' : '',
+      shakeCls: this.state.shake ? 'shake-x' : ''
+    };
+  }
+}
+</script>
+</body>
+</html>

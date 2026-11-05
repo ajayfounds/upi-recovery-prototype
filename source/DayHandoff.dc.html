@@ -30,7 +30,7 @@
 
   <main class="content" style="gap: 32px">
     <header style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px">
-      <span class="chip chip-blue rise d1"><span class="live-dot blue"></span>Escalated</span>
+      <span class="rise d1" style="display: inline-flex; align-items: center; height: 28px; font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: -.005em; color: #1A4FD6">Escalated</span>
       <h1 class="t-h1 rise d2">Connecting you to an expert</h1>
       <p class="t-body rise d3">We’re escalating your case for manual review. You don’t need to do anything.</p>
     </header>
@@ -87,7 +87,7 @@
           <span class="t-head">Support agent · JD</span>
           <span class="t-cap">Usually replies in <span class="num">1–2 min</span></span>
         </div>
-        <span class="chip {{agentChip}}">{{agentLabel}}</span>
+        <span style="font-size: 14px; line-height: 20px; font-weight: 600; white-space: nowrap; color: {{agentColor}}" class="{{agentDots}}">{{agentLabel}}</span>
       </div>
     </section>
   </div>
@@ -121,6 +121,8 @@ class Component extends DCLogic {
       s2: step(1, ['JD has joined your case', 'Finding an available agent', 'Next: a human agent takes over']),
       s3: step(2, ['Resolved with your bank', 'Contacting your bank for you', 'We’ll contact the bank for you']),
       agentChip: p >= 2 ? 'chip-green' : 'chip-blue',
+      agentColor: p >= 2 ? '#0B7A3B' : '#1A4FD6',
+      agentDots: p >= 2 ? 'pop' : 'dots',
       agentLabel: p >= 2 ? 'Joined' : 'Connecting'
     };
   }

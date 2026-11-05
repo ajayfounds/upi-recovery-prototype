@@ -216,3 +216,92 @@
   box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.12),0 50px 100px -30px rgba(0,0,0,.9),0 0 120px -40px rgba(64,124,255,.35)}
 .device-screen{width:390px;height:844px;border-radius:49px;overflow:hidden;position:relative;background:#07090D;isolation:isolate}
 .t-over{font-size:11px;line-height:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#808999;margin:0}
+
+/* ======================= Motion layer (v2) =======================
+   Every motion answers an event: money moving, a state changing, a tap.
+   Loops only run while something is genuinely live. One curve family, 400 ms clock. */
+
+/* ---- 3D ₹ coin: the money itself, used while it travels ---- */
+.coin{display:block;width:34px;height:34px;position:relative;transform-style:preserve-3d;flex:none}
+.coin i{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;font:700 17px/1 'Geist',ui-sans-serif,system-ui,sans-serif;font-style:normal;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;color:var(--coinInk);
+  background:radial-gradient(circle at 35% 30%,var(--coinHi),var(--coinMid) 55%,var(--coinLo));
+  box-shadow:inset 0 0 0 2px var(--coinRim),inset 0 -3px 6px rgba(0,0,0,.18)}
+.coin i + i{transform:rotateY(180deg)}
+.coin-stage{perspective:420px;display:grid;place-items:center}
+.coin.spin3d{animation:coinSpin 1.6s linear infinite}
+@keyframes coinSpin{to{transform:rotateY(360deg)}}
+.coin-blue{--coinHi:#CFE0FF;--coinMid:#6F9CFF;--coinLo:#2F6BFF;--coinRim:rgba(255,255,255,.55);--coinInk:#FFFFFF}
+.coin-green{--coinHi:#C8F7DA;--coinMid:#3DCB7C;--coinLo:#0F8A45;--coinRim:rgba(255,255,255,.55);--coinInk:#FFFFFF}
+.loader .coin-stage{position:absolute;inset:0}
+
+/* ---- Honest progress: fills over the same 2.8 s the screen waits ---- */
+.track{width:168px;height:4px;border-radius:2px;background:var(--trackBg,rgba(127,140,160,.18));overflow:hidden}
+.track > span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--blue),var(--blueInk));transform-origin:0 50%;animation:trackFill 2.8s cubic-bezier(.45,.05,.25,1) both}
+@keyframes trackFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* ---- Amount counts up once (₹0 → ₹450), width reserved so nothing shifts ---- */
+@property --n{syntax:'<integer>';inherits:false;initial-value:0}
+.cnt{position:relative;display:inline-block;background:inherit}
+.cnt .ghost{visibility:hidden}
+.cnt .count{position:absolute;right:0;top:0;background:inherit;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;counter-reset:n var(--n);animation:countUp 900ms cubic-bezier(.22,1,.36,1) 250ms both}
+.cnt .count::after{content:counter(n)}
+@keyframes countUp{from{--n:0}to{--n:450}}
+
+/* ---- Live step on the timeline: an orbiting arc instead of a pulse ---- */
+.tl-node.active::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid transparent;border-top-color:currentColor;border-right-color:currentColor;opacity:.55;animation:spin 1.4s linear infinite}
+
+/* ---- Waiting: a sweep ring around the seal — time passing, visibly ---- */
+.sweep{position:absolute;inset:-14px;pointer-events:none;transform:rotate(-90deg)}
+.sweep circle{fill:none;stroke-width:3;stroke-linecap:round}
+.sweep .bg{stroke:var(--sweepBg,rgba(224,138,0,.16))}
+.sweep .fg{stroke:var(--amber);stroke-dasharray:390;stroke-dashoffset:390;animation:sweep 6s cubic-bezier(.4,0,.2,1) infinite}
+@keyframes sweep{0%{stroke-dashoffset:390}80%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+.seal-wrap{position:relative;display:grid;place-items:center}
+
+/* ---- Notification: lands, then buzzes once like a real phone ---- */
+.toast{animation:toastIn var(--dur) var(--spring) 240ms both,buzz 360ms linear 700ms 1}
+@keyframes buzz{0%,100%{translate:0 0}20%{translate:-3px 0}40%{translate:3px 0}60%{translate:-2px 0}80%{translate:2px 0}}
+.toast .seal-sm{animation:pop var(--dur) var(--spring) 620ms both}
+
+/* ---- Outcome seals flip in on a real 3D axis ---- */
+.flip3d{animation:flipIn 900ms cubic-bezier(.2,.9,.25,1.15) both}
+@keyframes flipIn{0%{opacity:0;transform:perspective(600px) rotateY(-200deg) scale(.6)}60%{opacity:1}100%{opacity:1;transform:perspective(600px) rotateY(0) scale(1)}}
+.ring2{position:absolute;inset:-8px;border-radius:999px;border:2px solid var(--cg);opacity:0;pointer-events:none;animation:burst 1100ms var(--ease) 650ms both}
+.ring3{position:absolute;inset:-8px;border-radius:999px;border:2px solid var(--cg);opacity:0;pointer-events:none;animation:burst 1300ms var(--ease) 850ms both}
+
+/* ---- Receipt rows deal in one after another ---- */
+.deal .row{animation:rise var(--dur) var(--ease) both}
+.deal .row:nth-child(1){animation-delay:700ms}.deal .row:nth-child(2){animation-delay:780ms}.deal .row:nth-child(3){animation-delay:860ms}
+
+/* ---- Refund: the coin flies home along an arc, then the seal catches it ---- */
+.flyhome{position:absolute;left:50%;top:50%;margin:-17px 0 0 -17px;z-index:4;pointer-events:none;animation:flyX 1100ms cubic-bezier(.5,0,.2,1) 250ms both}
+.flyhome .coin{animation:flyY 1100ms cubic-bezier(.2,.8,.3,1) 250ms both}
+.flyhome .coin i{animation:none}
+@keyframes flyX{0%{transform:translateX(150px);opacity:0}12%{opacity:1}85%{opacity:1}100%{transform:translateX(0);opacity:0}}
+@keyframes flyY{0%{transform:translateY(-70px) rotateY(0)}45%{transform:translateY(-110px) rotateY(540deg)}100%{transform:translateY(0) rotateY(1080deg) scale(.6)}}
+.catch{animation:pop var(--dur) var(--spring) both,catch 420ms var(--ease) 1300ms both}
+@keyframes catch{0%,100%{transform:scale(1)}40%{transform:scale(1.1)}}
+
+
+/* ---- Duplicate alert: iOS arrival, one attention nudge, a shake if you insist ---- */
+.alert-in{animation:alertIn 420ms cubic-bezier(.2,.9,.3,1.1) both}
+@keyframes alertIn{from{opacity:0;transform:scale(1.12)}to{opacity:1;transform:none}}
+.attn{animation:pop var(--dur) var(--spring) 200ms both,attn 520ms var(--ease) 700ms both}
+@keyframes attn{0%,100%{rotate:0deg}20%{rotate:-12deg}40%{rotate:10deg}60%{rotate:-6deg}80%{rotate:3deg}}
+.shake-x{animation:shakeX 420ms var(--ease) both}
+@keyframes shakeX{0%,100%{translate:0 0}20%{translate:-8px 0}40%{translate:7px 0}60%{translate:-4px 0}80%{translate:2px 0}}
+.armed{background:var(--armedBg,rgba(196,39,28,.08))!important}
+
+/* ---- Touch: every button gives way under the thumb ---- */
+.btn,.icon-btn,.tap{-webkit-tap-highlight-color:transparent}
+.btn-primary:hover{transform:translateY(-1px)}
+.btn-primary:active{transform:translateY(0) scale(.97)}
+
+@media (prefers-reduced-motion:reduce){
+  .coin.spin3d,.tl-node.active::after,.sweep .fg,.track > span{animation:none!important}
+  .flyhome{display:none}
+  .cnt .count{animation-duration:1ms!important}
+}
+
+:root{--trackBg:rgba(255,255,255,.08);--sweepBg:rgba(255,181,71,.14);--armedBg:rgba(255,138,128,.10)}

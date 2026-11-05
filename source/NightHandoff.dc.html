@@ -28,12 +28,12 @@
     </button>
   </div>
 
-  <main class="content" style="gap: 32px">
-    <header style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px">
-      <span class="chip chip-blue rise d1"><span class="live-dot blue"></span>Escalated</span>
+  <main class="content" style="gap: 32px; position: relative">
+    <header style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; position: relative">
+      <span class="rise d1" style="display: inline-flex; align-items: center; height: 28px; font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: -.005em; color: #9BBEFF">Escalated</span>
       <h1 class="t-h1 rise d2">Connecting you to an expert</h1>
       <p class="t-body rise d3">We’re escalating your case for manual review. You don’t need to do anything.</p>
-    </header>
+    <div style="box-sizing: border-box; display: flex; flex-direction: column; width: 106px; height: 120px; border-radius: 8px; position: absolute; left: 0px; top: 0px; height: 30px"></div></header>
 
     <ol class="tl rise d4" aria-live="polite">
       <li class="tl-step">
@@ -87,7 +87,7 @@
           <span class="t-head">Support agent · JD</span>
           <span class="t-cap">Usually replies in <span class="num">1–2 min</span></span>
         </div>
-        <span class="chip {{agentChip}}">{{agentLabel}}</span>
+        <span style="font-size: 14px; line-height: 20px; font-weight: 600; white-space: nowrap; color: {{agentColor}}" class="{{agentDots}}">{{agentLabel}}</span>
       </div>
     </section>
   </div>
@@ -121,6 +121,8 @@ class Component extends DCLogic {
       s2: step(1, ['JD has joined your case', 'Finding an available agent', 'Next: a human agent takes over']),
       s3: step(2, ['Resolved with your bank', 'Contacting your bank for you', 'We’ll contact the bank for you']),
       agentChip: p >= 2 ? 'chip-green' : 'chip-blue',
+      agentColor: p >= 2 ? '#7EEBAE' : '#9BBEFF',
+      agentDots: p >= 2 ? 'pop' : 'dots',
       agentLabel: p >= 2 ? 'Joined' : 'Connecting'
     };
   }

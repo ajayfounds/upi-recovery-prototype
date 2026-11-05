@@ -29,19 +29,18 @@
   <div class="topbar" aria-hidden="true"></div>
 
   <main class="content state" aria-live="polite">
-    <div class="loader pop" role="img" aria-label="Checking payment status">
-      <svg class="ring" width="52" height="52" viewBox="0 0 52 52" fill="none">
+    <div class="loader pop" role="img" aria-label="Checking payment status" style="width: 131px; height: 131px">
+      <svg class="ring" width="52" height="52" viewBox="0 0 52 52" fill="none" style="width: 128px; height: 128px">
         <defs><linearGradient id="arc-day" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7FA6FF"></stop><stop offset="1" stop-color="#2F6BFF"></stop></linearGradient></defs>
         <circle cx="26" cy="26" r="22" stroke="rgba(11,18,32,.07)" stroke-width="4"></circle>
         <path d="M26 4a22 22 0 0 1 22 22" stroke="url(#arc-day)" stroke-width="4" stroke-linecap="round"></path>
       </svg>
+      <span class="coin-stage" aria-hidden="true" style="width: 130px; height: 129px; top: 2px; left: 2px"><span class="coin coin-blue spin3d" style="width: 65px; height: 66px"><i style="font-weight: 500; font-size: 40px; color: #FFFFFF; width: 77px; height: 79px; left: -7px; top: -8px">₹</i><i style="font-weight: 700; font-style: normal; width: 76px; height: 78px; left: -6px; top: -8px">₹</i></span></span>
     </div>
-    <span class="chip chip-green rise d2" style="margin-top: 32px">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-      Your money is safe
-    </span>
+    <span class="rise d2" style="margin-top: 32px; display: inline-flex; align-items: center; height: 28px; font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: -.005em; color: #0B7A3B">Your money is safe</span>
     <h1 class="t-h1 rise d3" style="margin-top: 14px; max-width: 280px">We’re checking your payment</h1>
     <p class="t-body rise d4" style="margin-top: 10px; max-width: 300px">The bank hasn’t confirmed the status yet. This usually takes a few seconds.</p>
+    <div class="track rise d5" style="margin-top: 24px" role="progressbar" aria-label="Confirming with your bank"><span></span></div>
   </main>
 
   <div class="footer rise d6">

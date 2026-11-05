@@ -29,19 +29,20 @@
 
   <main class="content state" aria-live="polite">
     <div style="position: relative; width: 200px; height: 112px; display: grid; place-items: center">
-      <div class="seal seal-blue pop">
+      <span class="flyhome" aria-hidden="true"><span class="coin coin-green"><i>₹</i><i>₹</i></span></span>
+      <div class="seal seal-blue catch">
         <span class="burst" aria-hidden="true"></span>
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path class="draw" d="m9 12 2 2 4-4"></path></svg>
       </div>
     </div>
 
     <h1 class="eyebrow rise d2" style="margin-top: 28px">Money refunded</h1>
-    <p class="amount chrome-green rise d3" style="margin-top: 6px"><span class="cur">+₹</span>450<span class="dec">.00</span></p>
+    <p class="amount chrome-green rise d3" style="margin-top: 6px" aria-label="Plus ₹450.00"><span class="cur">+₹</span><span class="cnt"><span class="ghost">450</span><span class="count" aria-hidden="true"></span></span><span class="dec">.00</span></p>
     <p class="t-body rise d4" style="margin-top: 4px; max-width: 300px">The payment didn’t go through. Your money is back in your account.</p>
 
-    <section class="group rise d5" style="margin-top: 32px" aria-label="Refund details">
-      <div class="row"><span class="lbl">Status</span><span class="chip chip-green"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Credited</span></div>
-      <div class="row"><span class="lbl">Original payment</span><span class="chip chip-ink">Failed</span></div>
+    <section class="group rise d5 deal" style="margin-top: 32px" aria-label="Refund details">
+      <div class="row"><span class="lbl">Status</span><span style="color: #0B7A3B">Credited</span></div>
+      <div class="row"><span class="lbl">Original payment</span><span style="color: #4A5363">Failed</span></div>
       <div class="row"><span class="lbl">Ref ID</span><span class="mono">UPI-928374</span></div>
     </section>
   </main>
